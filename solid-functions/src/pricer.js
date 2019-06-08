@@ -1,31 +1,20 @@
-const http = require("http")
+import fetchRating from './imdb-service'
 
 function price(imdbId) {
-    let rating = 0
-    const apiKey = '1f56833c'
+    let rating = 0;
 
-    rating = http.get(`http://www.omdbapi.com/?i=${imdbId}&apikey=${apiKey}`, (response) => {
-        let data = ''
+    rating = fetchRating(imdbId)
 
-        response.on('data', (chunk) => {
-            data += chunk
-        })
-
-        response.on('end', () => {
-            return JSON.parse(data).imdbRating
-        })
-    })
-
-    let base_price = 3.95
+    let base_price = 3.95;
 
     if (rating >= 8) {
-        base_price += 1.0
+        base_price += 1.0;
     }
     if (rating < 4) {
-        base_price -= 1.0
+        base_price -= 1.0;
     }
 
-    return base_price
+    return base_price;
 }
 
-module.exports = price
+module.exports = price;

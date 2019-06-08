@@ -11,3 +11,9 @@ Jason Gorman - [@jasongorman](https://twitter.com/jasongorman)
 2. It must be easy to understand.
 3. It should be low in duplication.
 4. It should be made from simple parts.
+
+## S.O.L.I.D ##
+
+### Single Responsibility ###
+
+Refactor fetching the rating into its own function which results in increased composability.
