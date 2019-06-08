@@ -1,4 +1,5 @@
 import price from './pricer'
+import fetchRating from './imdb-service'
 
 const buttonSubmit = document.querySelector(".price-calculator__submit")
 const fieldMovieId = document.querySelector(".price-calculator__movie-id")
@@ -8,7 +9,7 @@ const formatPrice = (price) => `£${price}`
 
 buttonSubmit.addEventListener('click', () => {
   const movieId = fieldMovieId.value
-  const moviePrice = price(movieId)
+  const moviePrice = price(movieId, fetchRating)
 
   labelPrice.innerHTML = formatPrice(moviePrice)
 })

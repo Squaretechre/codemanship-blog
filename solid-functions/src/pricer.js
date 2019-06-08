@@ -1,6 +1,5 @@
-import fetchRating from './imdb-service'
 
-function price(imdbId) {
+const price = (imdbId, fetchRating) => {
     let rating = 0;
 
     rating = fetchRating(imdbId)
