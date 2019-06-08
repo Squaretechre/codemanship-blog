@@ -25,3 +25,10 @@ Refactor the design to inject the extracted dependency as a function parameter, 
 - High-level functions should not depend directly on low-level functions
 - We should be able to substitute a function with another implementation of that function (e.g., a function that calls a web service with a stub implementation)
 - Can we add or replace functions without modifying existing functions? 
+
+### Client-Specific Interfaces ###
+
+The intent of the Interface Segregation Principle is that modules shouldn't depend on things they're not using.
+
+- No unused imports
+- The functional, dynamic equivalent of the ISP might be "Modules shouldn't reference things they don't use."
