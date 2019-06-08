@@ -1,8 +1,9 @@
 # S.O.L.I.D Functions #
 
-Example code from Codemanship's blog of the same title which can be found [here](http://codemanship.co.uk/parlezuml/blog/?postid=1578).
+Example code from Codemanship's blog of the same title which can be found [here](http://codemanship.co.uk/parlezuml/blog/?postid=1578). Notes adapted from the blog.
 
 Codemanship - [@codemanship](https://twitter.com/codemanship)
+
 Jason Gorman - [@jasongorman](https://twitter.com/jasongorman)
 
 ## Simple Design ##
@@ -32,3 +33,39 @@ The intent of the Interface Segregation Principle is that modules shouldn't depe
 
 - No unused imports
 - The functional, dynamic equivalent of the ISP might be "Modules shouldn't reference things they don't use."
+
+### Tell, Don't Ask ###
+
+Our aim is to have our modules and our functions know as little about each other as possible. They should present the smallest surface area through which clients interact with them. Function parameters can be thought of as setters. Every extra parameter creates an extra reason why the client might break.
+
+- Leverage closures to minimize the surface area exposed to clients
+- Construct dependencies outside of the pricer, makes database / api call swappable
+
+```
+    // function that gets a movie rating from a database
+    const getScalar = (dbUrl, dbName, userName, password, table, column) => {
+        return (id) => {
+            // close over getScalar parameters and return closure to client
+            // presenting a function that only takes an id
+
+            // code to fetch scalar value using parameters and id goes here
+
+            return value;
+        }
+    }
+
+    // function that gets a movie rating from an api
+    const fetchRating = (imdbId) => {
+        return http.get(`http://www.omdbapi.com/?i=${imdbId}&apikey=${apiKey}`, (response) => {
+            let data = ''
+
+            response.on('data', (chunk) => {
+                data += chunk
+            })
+
+            response.on('end', () => {
+                return JSON.parse(data).imdbRating
+            })
+        })
+    }
+```

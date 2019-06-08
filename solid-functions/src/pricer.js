@@ -4,16 +4,16 @@ const price = (imdbId, fetchRating) => {
 
     rating = fetchRating(imdbId)
 
-    let base_price = 3.95;
+    let basePrice = 3.95;
 
     if (rating >= 8) {
-        base_price += 1.0;
+        basePrice += 1.0;
     }
     if (rating < 4) {
-        base_price -= 1.0;
+        basePrice -= 1.0;
     }
 
-    return base_price;
+    return basePrice;
 }
 
 module.exports = price;
