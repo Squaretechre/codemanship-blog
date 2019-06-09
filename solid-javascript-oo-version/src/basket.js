@@ -1,5 +1,3 @@
-import PayPalPayments from './paypal-payments'
-
 class Basket {
     constructor(customer, items) {
         this.customer = customer        
@@ -10,8 +8,7 @@ class Basket {
         this.items.push(item)
     }
 
-    checkout() {
-        const payments = new PayPalPayments();
+    checkout(payments) {
         return payments.pay(this.total(), this.customer.creditCard)
     }
 
