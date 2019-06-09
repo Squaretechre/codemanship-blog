@@ -15,7 +15,9 @@ class PaymentsStub {
     this.paymentSuccess = paymentSuccess
   }
 
-  pay() {
+  pay(total, creditCard) {
+    console.log('🤖  Beep, boop! I\'m a test double!')
+    console.log(`💳  Faking charging ${creditCard} for £${total}.`)
     return this.paymentSuccess
   } 
 }

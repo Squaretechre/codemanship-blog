@@ -1,34 +1,22 @@
-import price from './pricer'
-import fetchRating from './imdb-service'
-import getScalar from './scalar-db'
+import Basket from './basket'
+import PayPalPayments from './paypal-payments'
 
-const scalarDb = getScalar(
-  'https://localhost:7979',
-  'imdb_db',
-  'admin',
-  'moviephile123',
-  'titles',
-  'rating')
-  
-const formatPrice = (price) => `£${price}`
-
-const buildPricer = () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const pricer = urlParams.get('pricer');  
-  return pricer === 'imdb'
-  ? (id) => price(id, fetchRating)
-  : (id) => price(id, scalarDb)
+const customer = {
+  creditCard: '1234'
 }
 
-const priceForMovieWithId = buildPricer()
+const items = []
 
-const buttonSubmit = document.querySelector(".price-calculator__submit")
-const fieldMovieId = document.querySelector(".price-calculator__movie-id")
-const labelPrice = document.querySelector(".price-calculator__price")
+const basket = new Basket(customer, items) 
 
-buttonSubmit.addEventListener('click', () => {
-  const movieId = fieldMovieId.value
-  const moviePrice = priceForMovieWithId(movieId)
+const buttonAddItem = document.querySelector(".basket__add-item")
+const buttonPay = document.querySelector(".basket__pay")
 
-  labelPrice.innerHTML = formatPrice(moviePrice)
+buttonAddItem.addEventListener('click', () => {
+  basket.add({price: 10.0, quantity: 10})
+  console.log('🍌 Item added!')
+})
+
+buttonPay.addEventListener('click', () => {
+  basket.checkout(new PayPalPayments())
 })
